@@ -9,7 +9,7 @@ It is a simple web app with just a bare bone structure accomplishing the followi
 Install the dependencies and devDependencies and start the server.
 
 ```sh
-cd pbx-portal
+cd pbx-portal-app
 yarn install
 yarn start:dev
 ```
