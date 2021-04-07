@@ -30,5 +30,7 @@ app.listen(port, () => {
     console.log(`Listening to requests on http://localhost:${port}`);
 
     initiateTunnel();
-    authenticateSequelize();
+    //If outer tunnels are to be used then comment the above and uncomment following line, 
+    //otherwise the tunnel service itself authenticates sequelize as well
+    //authenticateSequelize(); 
 });

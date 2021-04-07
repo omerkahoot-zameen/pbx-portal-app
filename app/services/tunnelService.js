@@ -13,6 +13,7 @@ const dbTunnelConfig = {
     dstPort: config.get('tunnel.db.dstPort'),
     localHost: config.get('tunnel.db.localHost'),
     localPort: config.get('tunnel.db.localPort'),
+    keepAlive: true
 };
 
 const fsTunnelConfig = {
@@ -24,6 +25,7 @@ const fsTunnelConfig = {
     dstPort: config.get('tunnel.storage.dstPort'),
     localHost: config.get('tunnel.storage.localHost'),
     localPort: config.get('tunnel.storage.localPort'),
+    keepAlive: true
 };
 
 /* 
@@ -37,7 +39,6 @@ const initiateTunnel = () => {
         if (error) {
             console.error(error);
         } else {
-            console.log('server:', server);
             authenticateSequelize();
         }
     });
@@ -46,9 +47,7 @@ const initiateTunnel = () => {
         //....
         if (error) {
             console.error(error);
-        } else {
-            console.log('server:', server);
-        }
+        } 
     });
 };
 
