@@ -1,0 +1,26 @@
+extends layout
+
+block layout-content
+  div.View
+    h1.Banner PBX PORTAL
+    table.table.table-striped
+      tr
+        th Unique ID
+        th SRC
+        th Call Date
+        th DST
+        th Duration
+        th Disposition
+        th Call Recording
+
+      each cdrRow in cdrRows
+        tr
+          td= cdrRow.uniqueid
+          td= cdrRow.src
+          td= cdrRow.formattedCallDate
+          td= cdrRow.dst
+          td= cdrRow.duration
+          td= cdrRow.disposition
+          td
+            audio(controls='')
+              source(src= cdrRow.recordingPath, type='audio/mpeg')
