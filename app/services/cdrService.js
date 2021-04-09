@@ -67,7 +67,7 @@ const getRecordingData = async (date, src, dst, res) => {
 
     date = parse(date, 'yyyy-MM-dd', new Date());
     const recordingUrl = "http://" + config.get('tunnel.storage.localHost') + ':' + config.get('tunnel.storage.localPort') + '/recordings/' +
-        format(date, 'yyyy-MM').toString() + "/" +
+        format(date, 'yyyy-MM-dd').toString() + "/" +
         src + "/" +
         dst + ".mp3";
     const recordingUrlFetch = await fetch(recordingUrl);
