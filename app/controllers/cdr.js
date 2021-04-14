@@ -14,7 +14,7 @@ const getCDREntries = async (req, res) => {
 
 const getRecording = async (req, res) => {
     try {
-        getRecordingData(req.query.date, req.query.src, req.query.dst, res);
+        getRecordingData(req.query.date, req.query.src, req.query.userfield, res);
     } catch (error) {
         res.send({ error: error.message });
     }

@@ -35,7 +35,7 @@ const getCDRData = async (passedDate, callerId) => {
 
     const formattedDate = format(parse(passedDate, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd').toString();
     const cdrRows = await CDR.findAll({
-        attributes: ["uniqueid", "src", "calldate", "dst", "duration", "disposition"],
+        attributes: ["uniqueid", "src", "calldate", "dst", "userfield", "duration", "disposition"],
         where: [sequelize.where(sequelize.fn('date', sequelize.col('calldate')), '=', formattedDate),
             {
                 src: callerId
@@ -53,23 +53,23 @@ const getCDRData = async (passedDate, callerId) => {
         row.formattedCallDate = format(row.calldate, 'yyyy-MM-dd hh:mm:ss').toString();
         row.recordingPath = "./recording?date=" +
             row.extractedDate + "&src=" +
-            row.src + "&dst=" +
-            row.dst;
+            row.src + "&userfield=" +
+            row.userfield;
         return row;
     });
 };
 
 
-const getRecordingData = async (date, src, dst, res) => {
-    if (!date || !src || !dst) {
-        throw new Error('Please pass all parameters (date, src, dst) in the url.');
+const getRecordingData = async (date, src, userfield, res) => {
+    if (!date || !src || !userfield) {
+        throw new Error('Please pass all parameters (date, src, userfield) in the url.');
     }
 
     date = parse(date, 'yyyy-MM-dd', new Date());
     const recordingUrl = "http://" + config.get('tunnel.storage.localHost') + ':' + config.get('tunnel.storage.localPort') + '/recordings/' +
         format(date, 'yyyy-MM-dd').toString() + "/" +
         src + "/" +
-        dst + ".mp3";
+        userfield + ".mp3";
     const recordingUrlFetch = await fetch(recordingUrl);
 
     await new Promise((resolve, reject) => {
