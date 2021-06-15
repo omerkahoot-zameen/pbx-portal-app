@@ -6,14 +6,24 @@
 const express = require("express");
 const path = require("path");
 const config = require("./config");
+
 /**
  * App Variables
  */
 const app = express();
 const port = config.get('serverPort');
 const { initiateTunnel } = require('./services/tunnelService');
-const { authenticateSequelize } = require('./services/cdrService');
 const routes = require("./routes/");
+
+const auth = require("http-auth");
+const authConnect = require("http-auth-connect");
+
+const basic = auth.basic({
+	realm: 'Login',
+	file: path.join(__dirname, '../../') + "/htpasswd"
+});
+
+app.use(authConnect(basic));
 
 /**
  *  App Configuration
